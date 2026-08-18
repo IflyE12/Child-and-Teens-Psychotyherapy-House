@@ -1,0 +1,6 @@
+{
+  "name": "Child & Teen Counselling Landing Page",
+  "description": "A premium sales and consultation booking landing page for child and teen psychological support services with Google Sheets integration and WhatsApp lead notification.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
