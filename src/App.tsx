@@ -42,6 +42,15 @@ export default function App() {
 
   // Fetch count and webhook setting on mount
   useEffect(() => {
+    try {
+      const local = JSON.parse(localStorage.getItem('haven_leads_store') || '[]');
+      if (Array.isArray(local)) {
+        setLeadsCount(local.length);
+      }
+    } catch {
+      // ignore
+    }
+
     fetch('/api/leads')
       .then((res) => res.json())
       .then((data) => {

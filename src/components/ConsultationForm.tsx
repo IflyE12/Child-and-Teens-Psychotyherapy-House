@@ -8,6 +8,12 @@ import {
   CONTACT_METHODS,
   CONSULTATION_TIMES,
 } from '../data/copyData';
+import {
+  DEFAULT_WEBHOOK_URL,
+  formatWhatsAppMessage,
+  saveLeadToLocalStorage,
+  sendToGoogleSheetDirectly,
+} from '../utils/leadHandler';
 import { Send, CheckCircle2, AlertCircle, FileSpreadsheet, Lock } from 'lucide-react';
 
 interface ConsultationFormProps {
@@ -103,6 +109,11 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
 
     setIsSubmitting(true);
 
+    const activeWebhookUrl = customWebhookInput.trim() || configuredWebhookUrl || DEFAULT_WEBHOOK_URL;
+    const { whatsappText, whatsappUrl } = formatWhatsAppMessage(formData);
+    const localSaved = saveLeadToLocalStorage(formData);
+    const leadId = localSaved?.id || `lead_${Date.now()}`;
+
     try {
       const response = await fetch('/api/submit-lead', {
         method: 'POST',
@@ -110,26 +121,46 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
         body: JSON.stringify({
           ...formData,
           consentConfirmed: true,
-          customWebhookUrl: customWebhookInput,
+          customWebhookUrl: activeWebhookUrl,
         }),
       });
 
-      const resData = await response.json();
-
-      if (resData.success) {
-        onSuccessSubmit({
-          leadId: resData.leadId,
-          whatsappUrl: resData.whatsappUrl,
-          whatsappText: resData.whatsappText,
-          sheetForwarded: resData.sheetForwarded,
-          sheetError: resData.sheetError,
-          formData,
-        });
-      } else {
-        setErrorMessage(resData.error || "Failed to process lead. Please try again.");
+      if (response.ok) {
+        const resData = await response.json().catch(() => null);
+        if (resData && resData.success) {
+          onSuccessSubmit({
+            leadId: resData.leadId,
+            whatsappUrl: resData.whatsappUrl,
+            whatsappText: resData.whatsappText,
+            sheetForwarded: resData.sheetForwarded,
+            sheetError: resData.sheetError,
+            formData,
+          });
+          return;
+        }
       }
-    } catch (err: any) {
-      setErrorMessage("Network error connecting to server. Please check your connection.");
+      
+      // Fallback for static hosting (e.g. Netlify)
+      const sheetForwarded = await sendToGoogleSheetDirectly(activeWebhookUrl, formData);
+      onSuccessSubmit({
+        leadId,
+        whatsappUrl,
+        whatsappText,
+        sheetForwarded,
+        sheetError: null,
+        formData,
+      });
+    } catch {
+      // Direct client fallback
+      const sheetForwarded = await sendToGoogleSheetDirectly(activeWebhookUrl, formData);
+      onSuccessSubmit({
+        leadId,
+        whatsappUrl,
+        whatsappText,
+        sheetForwarded,
+        sheetError: null,
+        formData,
+      });
     } finally {
       setIsSubmitting(false);
     }

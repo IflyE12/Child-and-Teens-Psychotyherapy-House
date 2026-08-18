@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Users, Download, Phone, RefreshCw, Search, Calendar, FileText } from 'lucide-react';
 import { LeadFormData } from '../types';
+import { getLocalLeads } from '../utils/leadHandler';
 
 interface LeadRecord extends LeadFormData {
   id: string;
@@ -25,16 +26,74 @@ export const LeadsAdminDrawer: React.FC<LeadsAdminDrawerProps> = ({
   const fetchLeads = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/leads');
-      const data = await res.json();
-      if (data.leads) {
-        setLeads(data.leads);
+      const local = getLocalLeads();
+      const res = await fetch('/api/leads').catch(() => null);
+      if (res && res.ok) {
+        const data = await res.json().catch(() => null);
+        if (data && data.leads) {
+          // Merge unique by id
+          const map = new Map<string, LeadRecord>();
+          data.leads.forEach((l: LeadRecord) => map.set(l.id, l));
+          local.forEach((l: LeadRecord) => map.set(l.id, l));
+          setLeads(Array.from(map.values()));
+          return;
+        }
       }
+      setLeads(local);
     } catch (err) {
       console.error('Failed to load leads:', err);
+      setLeads(getLocalLeads());
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleExportCSV = () => {
+    if (leads.length === 0) return;
+    const headers = [
+      'Submission Date',
+      'Parent Name',
+      'Parent Email',
+      'Parent Phone',
+      'Parent Occupation',
+      'Child Name',
+      'Child Age',
+      'Child Gender',
+      'Concerns',
+      'Other Concern',
+      'Situation Description',
+      'Desired Outcome',
+      'Preferred Consultation',
+      'Preferred Contact Method',
+      'Preferred Time',
+    ];
+
+    const rows = leads.map((l) => [
+      new Date(l.timestamp).toLocaleString(),
+      l.parentName,
+      l.parentEmail,
+      l.parentPhone,
+      l.parentOccupation || '',
+      l.childName,
+      l.childAge,
+      l.childGender,
+      Array.isArray(l.concerns) ? l.concerns.join('; ') : l.concerns,
+      l.otherConcern || '',
+      `"${(l.situationDescription || '').replace(/"/g, '""')}"`,
+      `"${(l.desiredOutcome || '').replace(/"/g, '""')}"`,
+      l.preferredConsultation,
+      l.preferredContactMethod,
+      l.preferredTime,
+    ]);
+
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `haven_counselling_leads_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   useEffect(() => {
@@ -80,14 +139,13 @@ export const LeadsAdminDrawer: React.FC<LeadsAdminDrawerProps> = ({
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             </button>
 
-            <a
-              href="/api/leads/export"
-              download
+            <button
+              onClick={handleExportCSV}
               className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#6B8E23] hover:bg-[#5a781d] text-white text-xs font-bold transition-colors cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export CSV</span>
-            </a>
+            </button>
 
             <button
               onClick={onClose}
