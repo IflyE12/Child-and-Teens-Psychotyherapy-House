@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Copy, Check, FileSpreadsheet, ExternalLink, Code2, Play } from 'lucide-react';
+import { GOOGLE_APPS_SCRIPT_CODE, getSavedWebhookUrl, saveWebhookUrlToStorage } from '../utils/leadHandler';
 
 interface GoogleSheetsModalProps {
   isOpen: boolean;
@@ -14,23 +15,29 @@ export const GoogleSheetsModal: React.FC<GoogleSheetsModalProps> = ({
   configuredWebhookUrl,
   onSaveWebhookUrl,
 }) => {
-  const [scriptCode, setScriptCode] = useState('');
+  const [scriptCode, setScriptCode] = useState(GOOGLE_APPS_SCRIPT_CODE);
   const [copied, setCopied] = useState(false);
-  const [webhookInput, setWebhookInput] = useState(configuredWebhookUrl);
+  const [webhookInput, setWebhookInput] = useState(configuredWebhookUrl || getSavedWebhookUrl());
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   useEffect(() => {
     fetch('/api/google-sheet-script')
-      .then((res) => res.json())
+      .then((res) => {
+        const ct = res.headers.get('content-type');
+        if (ct && ct.includes('application/json')) {
+          return res.json();
+        }
+        return null;
+      })
       .then((data) => {
-        if (data.script) {
+        if (data?.script) {
           setScriptCode(data.script);
         }
-        if (data.configuredWebhookUrl) {
+        if (data?.configuredWebhookUrl) {
           setWebhookInput(data.configuredWebhookUrl);
         }
       })
-      .catch((err) => console.error("Error fetching Google Sheet script:", err));
+      .catch((err) => console.log("Static mode active - using embedded Google Sheet script:", err));
   }, []);
 
   useEffect(() => {
@@ -48,6 +55,7 @@ export const GoogleSheetsModal: React.FC<GoogleSheetsModalProps> = ({
   };
 
   const handleSaveSettings = () => {
+    saveWebhookUrlToStorage(webhookInput);
     onSaveWebhookUrl(webhookInput);
     setSaveSuccess(true);
     setTimeout(() => setSaveSuccess(false), 2500);

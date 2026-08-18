@@ -51,23 +51,40 @@ export default function App() {
       // ignore
     }
 
+    const savedUrl = localStorage.getItem('haven_webhook_url');
+    if (savedUrl) {
+      setConfiguredWebhookUrl(savedUrl);
+    }
+
     fetch('/api/leads')
-      .then((res) => res.json())
+      .then((res) => {
+        const ct = res.headers.get('content-type');
+        if (ct && ct.includes('application/json')) {
+          return res.json();
+        }
+        return null;
+      })
       .then((data) => {
-        if (typeof data.totalCount === 'number') {
+        if (data && typeof data.totalCount === 'number') {
           setLeadsCount(data.totalCount);
         }
       })
-      .catch((err) => console.error('Error fetching leads count:', err));
+      .catch((err) => console.log('Static preview mode active for leads:', err));
 
     fetch('/api/google-sheet-script')
-      .then((res) => res.json())
+      .then((res) => {
+        const ct = res.headers.get('content-type');
+        if (ct && ct.includes('application/json')) {
+          return res.json();
+        }
+        return null;
+      })
       .then((data) => {
-        if (data.configuredWebhookUrl) {
+        if (data && data.configuredWebhookUrl) {
           setConfiguredWebhookUrl(data.configuredWebhookUrl);
         }
       })
-      .catch((err) => console.error('Error fetching settings:', err));
+      .catch((err) => console.log('Static preview mode active for settings:', err));
   }, [refreshTrigger]);
 
   const handleScrollToForm = () => {
