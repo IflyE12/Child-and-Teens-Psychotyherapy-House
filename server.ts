@@ -147,8 +147,8 @@ async function startServer() {
 
       leadsStore.unshift(newLead);
 
-      // Target WhatsApp Number: 08073327207 -> International format: 2348073327207
-      const whatsappNumber = "2348073327207";
+      // Target WhatsApp Number: 08037713335 -> International format: 2348037713335
+      const whatsappNumber = "2348037713335";
       const concernsList = Array.isArray(newLead.concerns) ? newLead.concerns.join(", ") : newLead.concerns;
       const otherDetail = newLead.otherConcern ? ` (${newLead.otherConcern})` : "";
 

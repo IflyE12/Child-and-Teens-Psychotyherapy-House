@@ -11,23 +11,23 @@ import {
 } from 'lucide-react';
 
 const trustIcons = [
-  <ShieldCheck className="w-4 h-4 text-[#6B8E23]" />,
-  <Award className="w-4 h-4 text-[#6B8E23]" />,
-  <Sparkles className="w-4 h-4 text-[#6B8E23]" />,
-  <Users className="w-4 h-4 text-[#6B8E23]" />,
-  <Heart className="w-4 h-4 text-[#6B8E23]" />,
-  <FileCheck className="w-4 h-4 text-[#6B8E23]" />,
+  <ShieldCheck className="w-4 h-4 text-[#A7D495]" />,
+  <Award className="w-4 h-4 text-[#A7D495]" />,
+  <Sparkles className="w-4 h-4 text-[#A7D495]" />,
+  <Users className="w-4 h-4 text-[#A7D495]" />,
+  <Heart className="w-4 h-4 text-[#A7D495]" />,
+  <FileCheck className="w-4 h-4 text-[#A7D495]" />,
 ];
 
 export const TrustBadges: React.FC = () => {
   return (
-    <div className="bg-[#1A2A1A] text-white rounded-xl p-5 shadow-2xs border border-[#4A5D23] mb-8 max-w-4xl mx-auto">
-      <div className="text-center mb-5">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-[#6B8E23] bg-[#2D2D2D] px-2.5 py-0.5 rounded border border-[#4A5D23]">
-          Why You Can Trust Our Care
+    <div className="bg-[#172815] text-white rounded-2xl p-6 sm:p-7 shadow-md border border-[#2D452B] mb-10 max-w-4xl mx-auto">
+      <div className="text-center mb-6">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-[#A7D495] bg-[#223521] px-3 py-1 rounded-md border border-[#3E5C3B]">
+          Clinical Ethics & Patient Sanctuary
         </span>
-        <h3 className="text-lg sm:text-xl font-bold font-serif text-white mt-1.5">
-          Committed to Excellence in Mental Health
+        <h3 className="text-lg sm:text-xl font-bold font-serif text-white mt-2">
+          Committed to Clinical Excellence & Absolute Discretion
         </h3>
       </div>
 
@@ -35,9 +35,9 @@ export const TrustBadges: React.FC = () => {
         {TRUST_BADGES.map((badge, index) => (
           <div
             key={badge}
-            className="flex items-center space-x-2.5 bg-white/10 px-3 py-2.5 rounded-lg border border-white/10 hover:bg-white/15 transition-colors"
+            className="flex items-center space-x-3 bg-white/5 px-3.5 py-3 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
           >
-            <div className="w-7 h-7 rounded-md bg-white/10 flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-[#223521] border border-[#3E5C3B] flex items-center justify-center shrink-0">
               {trustIcons[index] || <CheckCircle className="w-4 h-4 text-[#6B8E23]" />}
             </div>
             <span className="text-xs font-semibold text-[#F7F9F2]">

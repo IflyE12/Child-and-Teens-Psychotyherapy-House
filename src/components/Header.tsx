@@ -1,74 +1,110 @@
 import React from 'react';
-import { Heart, Phone, FileSpreadsheet, Users, Calendar } from 'lucide-react';
-import { WHATSAPP_NUMBER } from '../data/copyData';
+import { Heart, Phone, Users, Calendar, Sparkles } from 'lucide-react';
+import { WHATSAPP_NUMBER, WHATSAPP_INTL } from '../data/copyData';
 
 interface HeaderProps {
-  onOpenGoogleSheetModal: () => void;
   onOpenLeadsDrawer: () => void;
   onScrollToForm: () => void;
   leadsCount: number;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  onOpenGoogleSheetModal,
   onOpenLeadsDrawer,
   onScrollToForm,
   leadsCount,
 }) => {
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E1D8] shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-40 bg-[#FDFCFB]/95 backdrop-blur-md border-b border-[#E8E2D9] shadow-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
-        {/* Brand Logo & Title */}
-        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="w-9 h-9 rounded-full bg-[#6B8E23] flex items-center justify-center text-white shadow-xs">
-            <Heart className="w-5 h-5 fill-white/20 text-white" />
+        {/* Brand Logo & Editorial Title */}
+        <div
+          className="flex items-center space-x-3.5 cursor-pointer group"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#2D5A27] to-[#1E3E1A] flex items-center justify-center text-white shadow-sm ring-2 ring-[#4A7043]/20 group-hover:scale-105 transition-transform">
+            <Heart className="w-5 h-5 fill-white/30 text-white" />
           </div>
           <div>
-            <span className="text-xl font-bold font-serif text-[#1A2A1A] tracking-tight block">
-              Haven <span className="text-[#6B8E23] font-serif text-lg font-bold">Counselling</span>
-            </span>
-            <span className="text-[11px] text-[#777777] font-medium hidden sm:block leading-none">
+            <div className="flex items-baseline space-x-1.5">
+              <span className="text-xl sm:text-2xl font-bold font-serif text-[#172815] tracking-tight">
+                Haven
+              </span>
+              <span className="text-[#3E6B35] font-serif text-lg sm:text-xl font-medium italic">
+                Counselling
+              </span>
+            </div>
+            <p className="text-[11px] text-[#636C5F] font-medium tracking-wide">
               Child & Teen Psychological Support
-            </span>
+            </p>
           </div>
         </div>
 
-        {/* Action Buttons & Contact info */}
-        <div className="flex items-center space-x-2 sm:space-x-3">
+        {/* Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center space-x-8 text-xs font-semibold text-[#4A5345]">
+          <button
+            onClick={() => scrollToSection('approach-section')}
+            className="hover:text-[#2D5A27] transition-colors cursor-pointer py-1"
+          >
+            Our Approach
+          </button>
+          <button
+            onClick={() => scrollToSection('services-section')}
+            className="hover:text-[#2D5A27] transition-colors cursor-pointer py-1"
+          >
+            Specialized Care
+          </button>
+          <button
+            onClick={() => scrollToSection('why-choose-us-section')}
+            className="hover:text-[#2D5A27] transition-colors cursor-pointer py-1"
+          >
+            Why Families Trust Us
+          </button>
+          <button
+            onClick={() => scrollToSection('testimonials-section')}
+            className="hover:text-[#2D5A27] transition-colors cursor-pointer py-1"
+          >
+            Success Stories
+          </button>
+        </nav>
+
+        {/* Action Controls & Contact info */}
+        <div className="flex items-center space-x-2.5 sm:space-x-3">
           
-          {/* Quick WhatsApp Phone Link */}
+          {/* Quick Direct WhatsApp Phone Link */}
           <a
-            href={`https://wa.me/2348073327207?text=${encodeURIComponent("Hello! I would like to inquire about child & teen counselling consultations.")}`}
+            href={`https://wa.me/${WHATSAPP_INTL}?text=${encodeURIComponent("Hello! I would like to inquire about child & teen counselling consultations.")}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-[#F7F9F2] text-[#4A5D23] text-xs font-semibold hover:bg-[#E5E1D8]/50 transition-colors border border-[#E5E1D8]"
+            className="flex items-center space-x-2 px-3 py-2 rounded-xl bg-[#F4F7EF] text-[#24461E] text-xs font-semibold hover:bg-[#EAEFDDA]/80 transition-all border border-[#DFE7D6] hover:border-[#3E6B35]/40"
             title="Chat directly on WhatsApp"
           >
-            <Phone className="w-3.5 h-3.5 text-[#6B8E23]" />
-            <span>Call / WhatsApp: {WHATSAPP_NUMBER}</span>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
+            </span>
+            <Phone className="w-3.5 h-3.5 text-[#3E6B35]" />
+            <span className="hidden sm:inline font-mono text-[12px]">{WHATSAPP_NUMBER}</span>
+            <span className="sm:hidden font-medium text-[11px]">Chat</span>
           </a>
 
-          {/* Google Sheets Setup Trigger */}
-          <button
-            onClick={onOpenGoogleSheetModal}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#2D2D2D] bg-[#F7F9F2] hover:bg-[#E5E1D8]/50 border border-[#E5E1D8] transition-all cursor-pointer"
-            title="Google Sheets Script & Webhook Settings"
-          >
-            <FileSpreadsheet className="w-4 h-4 text-[#6B8E23]" />
-            <span className="hidden sm:inline">Google Sheets</span>
-          </button>
-
-          {/* Admin Leads Drawer Trigger */}
+          {/* Admin Leads Drawer Trigger (Discreet management) */}
           <button
             onClick={onOpenLeadsDrawer}
-            className="relative flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#2D2D2D] bg-[#F7F9F2] hover:bg-[#E5E1D8]/50 border border-[#E5E1D8] transition-all cursor-pointer"
-            title="View captured leads dashboard"
+            className="relative flex items-center space-x-1 px-2.5 py-2 rounded-xl text-xs font-semibold text-[#576150] bg-[#FAF8F5] hover:bg-[#F0ECE1] border border-[#E8E2D9] transition-all cursor-pointer"
+            title="View consultation leads"
           >
-            <Users className="w-4 h-4 text-[#4A5D23]" />
-            <span className="hidden sm:inline">Leads</span>
+            <Users className="w-3.5 h-3.5 text-[#3E6B35]" />
+            <span className="hidden md:inline text-[11px]">Leads</span>
             {leadsCount > 0 && (
-              <span className="ml-1 px-1.5 py-0.5 rounded-full bg-[#6B8E23] text-white text-[10px] font-bold">
+              <span className="ml-1 px-1.5 py-0.2 rounded-full bg-[#2D5A27] text-white text-[10px] font-bold">
                 {leadsCount}
               </span>
             )}
@@ -77,9 +113,9 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Primary CTA Button */}
           <button
             onClick={onScrollToForm}
-            className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-[#6B8E23] hover:bg-[#5a781d] text-white font-bold text-xs sm:text-sm shadow-xs transition-all cursor-pointer"
+            className="inline-flex items-center space-x-2 px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#2D5A27] to-[#3B6B34] hover:from-[#24491F] hover:to-[#2D5A27] text-white font-bold text-xs sm:text-sm shadow-sm hover:shadow transition-all cursor-pointer transform hover:-translate-y-0.5 active:translate-y-0"
           >
-            <Calendar className="w-4 h-4" />
+            <Calendar className="w-3.5 h-3.5 text-white/90" />
             <span>Book Consultation</span>
           </button>
         </div>

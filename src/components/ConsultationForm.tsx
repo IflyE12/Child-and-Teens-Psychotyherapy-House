@@ -7,6 +7,7 @@ import {
   CONSULTATION_TYPES,
   CONTACT_METHODS,
   CONSULTATION_TIMES,
+  WHATSAPP_NUMBER,
 } from '../data/copyData';
 import {
   DEFAULT_WEBHOOK_URL,
@@ -213,7 +214,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 placeholder="e.g., Mrs. Adeola Johnson"
                 value={formData.parentName}
                 onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#6B8E23] text-slate-900 text-sm outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#2D5A27] text-slate-900 text-sm outline-none transition-all"
               />
             </div>
 
@@ -227,7 +228,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 placeholder="e.g., parent@example.com"
                 value={formData.parentEmail}
                 onChange={(e) => setFormData({ ...formData, parentEmail: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#6B8E23] text-slate-900 text-sm outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#2D5A27] text-slate-900 text-sm outline-none transition-all"
               />
             </div>
 
@@ -241,7 +242,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 placeholder="e.g., 08012345678"
                 value={formData.parentPhone}
                 onChange={(e) => setFormData({ ...formData, parentPhone: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#6B8E23] text-slate-900 text-sm outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#2D5A27] text-slate-900 text-sm outline-none transition-all"
               />
             </div>
 
@@ -254,7 +255,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 placeholder="e.g., Accountant, Teacher, Business Owner"
                 value={formData.parentOccupation}
                 onChange={(e) => setFormData({ ...formData, parentOccupation: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#6B8E23] text-slate-900 text-sm outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#2D5A27] text-slate-900 text-sm outline-none transition-all"
               />
             </div>
           </div>
@@ -278,7 +279,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 placeholder="e.g., Daniel Johnson"
                 value={formData.childName}
                 onChange={(e) => setFormData({ ...formData, childName: e.target.value })}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#6B8E23] text-slate-900 text-sm outline-none transition-all"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-[#DDD] focus:border-[#2D5A27] text-slate-900 text-sm outline-none transition-all"
               />
             </div>
 
@@ -321,7 +322,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                     key={genderOpt}
                     className={`flex items-center space-x-2.5 p-2.5 rounded-lg border cursor-pointer transition-all text-xs ${
                       formData.childGender === genderOpt
-                        ? 'bg-[#F7F9F2] border-[#6B8E23] text-[#1A2A1A] font-semibold'
+                        ? 'bg-[#F7F9F2] border-[#2D5A27] text-[#1A2A1A] font-semibold'
                         : 'border-[#DDD] text-[#555] hover:bg-[#F7F9F2]/50'
                     }`}
                   >
@@ -330,7 +331,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                       name="childGender"
                       checked={formData.childGender === genderOpt}
                       onChange={() => setFormData({ ...formData, childGender: genderOpt })}
-                      className="accent-[#6B8E23] w-3.5 h-3.5"
+                      className="accent-[#2D5A27] w-3.5 h-3.5"
                     />
                     <span>{genderOpt}</span>
                   </label>
@@ -359,7 +360,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                     key={concern}
                     className={`flex items-start space-x-2.5 p-2.5 rounded-lg border cursor-pointer transition-all text-xs ${
                       checked
-                        ? 'bg-[#F7F9F2] border-[#6B8E23] text-[#1A2A1A] font-semibold'
+                        ? 'bg-[#F7F9F2] border-[#2D5A27] text-[#1A2A1A] font-semibold'
                         : 'border-[#DDD] text-[#555] hover:bg-[#F7F9F2]/50'
                     }`}
                   >
@@ -367,7 +368,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                       type="checkbox"
                       checked={checked}
                       onChange={() => handleConcernToggle(concern)}
-                      className="accent-[#6B8E23] w-3.5 h-3.5 mt-0.5 rounded"
+                      className="accent-[#2D5A27] w-3.5 h-3.5 mt-0.5 rounded"
                     />
                     <span>{concern}</span>
                   </label>
@@ -384,7 +385,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                 placeholder="Specify any other specific issue..."
                 value={formData.otherConcern}
                 onChange={(e) => setFormData({ ...formData, otherConcern: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-lg border border-[#DDD] focus:border-[#6B8E23] text-slate-900 text-xs outline-none transition-all"
+                className="w-full px-3.5 py-2 rounded-lg border border-[#DDD] focus:border-[#2D5A27] text-slate-900 text-xs outline-none transition-all"
               />
             </div>
           </div>
@@ -450,7 +451,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                     key={type}
                     className={`flex items-center space-x-2 p-2 rounded-lg border cursor-pointer text-xs ${
                       formData.preferredConsultation === type
-                        ? 'bg-[#F7F9F2] border-[#6B8E23] text-[#1A2A1A] font-semibold'
+                        ? 'bg-[#F7F9F2] border-[#2D5A27] text-[#1A2A1A] font-semibold'
                         : 'border-[#DDD] text-[#555]'
                     }`}
                   >
@@ -459,7 +460,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                       name="preferredConsultation"
                       checked={formData.preferredConsultation === type}
                       onChange={() => setFormData({ ...formData, preferredConsultation: type })}
-                      className="accent-[#6B8E23]"
+                      className="accent-[#2D5A27]"
                     />
                     <span>{type}</span>
                   </label>
@@ -478,7 +479,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                     key={method}
                     className={`flex items-center space-x-2 p-2 rounded-lg border cursor-pointer text-xs ${
                       formData.preferredContactMethod === method
-                        ? 'bg-[#F7F9F2] border-[#6B8E23] text-[#1A2A1A] font-semibold'
+                        ? 'bg-[#F7F9F2] border-[#2D5A27] text-[#1A2A1A] font-semibold'
                         : 'border-[#DDD] text-[#555]'
                     }`}
                   >
@@ -487,7 +488,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                       name="preferredContactMethod"
                       checked={formData.preferredContactMethod === method}
                       onChange={() => setFormData({ ...formData, preferredContactMethod: method })}
-                      className="accent-[#6B8E23]"
+                      className="accent-[#2D5A27]"
                     />
                     <span>{method}</span>
                   </label>
@@ -506,7 +507,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                     key={time}
                     className={`flex items-center space-x-2 p-2 rounded-lg border cursor-pointer text-xs ${
                       formData.preferredTime === time
-                        ? 'bg-[#F7F9F2] border-[#6B8E23] text-[#1A2A1A] font-semibold'
+                        ? 'bg-[#F7F9F2] border-[#2D5A27] text-[#1A2A1A] font-semibold'
                         : 'border-[#DDD] text-[#555]'
                     }`}
                   >
@@ -515,7 +516,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
                       name="preferredTime"
                       checked={formData.preferredTime === time}
                       onChange={() => setFormData({ ...formData, preferredTime: time })}
-                      className="accent-[#6B8E23]"
+                      className="accent-[#2D5A27]"
                     />
                     <span>{time}</span>
                   </label>
@@ -525,80 +526,78 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
           </div>
         </div>
 
-        {/* Google Sheet Integration Optional Link Input */}
-        <div className="bg-[#F7F9F2] p-3.5 rounded-xl border border-[#E5E1D8] space-y-1.5">
-          <div className="flex items-center justify-between">
-            <label className="text-[11px] font-bold uppercase text-[#1A2A1A] flex items-center space-x-1.5">
-              <FileSpreadsheet className="w-3.5 h-3.5 text-[#6B8E23]" />
-              <span>Google Sheet Webhook URL (Optional):</span>
-            </label>
-            <span className="text-[10px] text-[#4A5D23] font-medium">Auto-sync active</span>
+        {/* Confidentiality & Security Reassurance Banner */}
+        <div className="bg-[#FAF8F5] p-3.5 rounded-xl border border-[#E8E2D9] flex items-center space-x-3 text-xs text-[#576150]">
+          <div className="w-8 h-8 rounded-lg bg-[#EAF0E5] text-[#2D5A27] flex items-center justify-center shrink-0">
+            <Lock className="w-4 h-4" />
           </div>
-          <input
-            type="url"
-            placeholder="https://script.google.com/macros/s/.../exec"
-            value={customWebhookInput}
-            onChange={(e) => setCustomWebhookInput(e.target.value)}
-            className="w-full px-3 py-1.5 rounded-lg border border-[#DDD] bg-white text-xs text-slate-800 outline-none focus:border-[#6B8E23]"
-          />
+          <p className="leading-relaxed">
+            <strong className="text-[#172815] font-semibold">Strict Confidentiality Standard:</strong> Your information is handled under strict ethical guidelines, logged securely, and forwarded directly to our lead clinical psychologist for preparation.
+          </p>
         </div>
 
         {/* Section 6: Consent Checkboxes */}
-        <div className="space-y-2 bg-[#F7F9F2]/60 p-4 rounded-xl border border-[#E5E1D8]">
-          <label className="block text-[11px] font-bold uppercase text-[#1A2A1A] mb-1">
-            Consent & Terms <span className="text-rose-500">*</span>
+        <div className="space-y-2.5 bg-[#FAF8F5] p-4 sm:p-5 rounded-xl border border-[#E8E2D9]">
+          <label className="block text-[11px] font-bold uppercase tracking-wider text-[#172815] mb-1">
+            Consent & Confidentiality Terms <span className="text-rose-500">*</span>
           </label>
 
-          <label className="flex items-start space-x-2.5 cursor-pointer text-xs text-[#555]">
+          <label className="flex items-start space-x-2.5 cursor-pointer text-xs text-[#576150] hover:text-[#172815] transition-colors">
             <input
               type="checkbox"
               required
               checked={formData.consentAccuracy}
               onChange={(e) => setFormData({ ...formData, consentAccuracy: e.target.checked })}
-              className="accent-[#6B8E23] w-3.5 h-3.5 mt-0.5 rounded"
+              className="accent-[#2D5A27] w-4 h-4 mt-0.5 rounded cursor-pointer"
             />
-            <span>I confirm that the information provided is accurate to the best of my knowledge.</span>
+            <span>I confirm that the details provided are accurate to help understand my child's needs.</span>
           </label>
 
-          <label className="flex items-start space-x-2.5 cursor-pointer text-xs text-[#555]">
+          <label className="flex items-start space-x-2.5 cursor-pointer text-xs text-[#576150] hover:text-[#172815] transition-colors">
             <input
               type="checkbox"
               required
               checked={formData.consentRequestOnly}
               onChange={(e) => setFormData({ ...formData, consentRequestOnly: e.target.checked })}
-              className="accent-[#6B8E23] w-3.5 h-3.5 mt-0.5 rounded"
+              className="accent-[#2D5A27] w-4 h-4 mt-0.5 rounded cursor-pointer"
             />
-            <span>I understand that submitting this form is a request for consultation and does not constitute emergency mental health care.</span>
+            <span>I understand this submission is an appointment request and not an emergency crisis intervention.</span>
           </label>
 
-          <label className="flex items-start space-x-2.5 cursor-pointer text-xs text-[#555]">
+          <label className="flex items-start space-x-2.5 cursor-pointer text-xs text-[#576150] hover:text-[#172815] transition-colors">
             <input
               type="checkbox"
               required
               checked={formData.consentContact}
               onChange={(e) => setFormData({ ...formData, consentContact: e.target.checked })}
-              className="accent-[#6B8E23] w-3.5 h-3.5 mt-0.5 rounded"
+              className="accent-[#2D5A27] w-4 h-4 mt-0.5 rounded cursor-pointer"
             />
-            <span>I consent to being contacted regarding my consultation request.</span>
+            <span>I consent to being contacted by Haven Counselling via phone, email, or WhatsApp.</span>
           </label>
         </div>
 
         {/* Submit Button */}
-        <div className="pt-1">
+        <div className="pt-2">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-4 px-6 rounded-xl bg-[#1A2A1A] hover:bg-[#2c3d2c] text-white font-bold uppercase tracking-wider text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center space-x-2 disabled:opacity-50"
+            className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#2D5A27] via-[#35642E] to-[#2D5A27] hover:from-[#24491F] hover:to-[#24491F] text-white font-bold tracking-wide text-sm sm:text-base shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center space-x-3 disabled:opacity-50 transform hover:-translate-y-0.5 active:translate-y-0"
           >
             {isSubmitting ? (
-              <span>Processing Request...</span>
+              <span className="flex items-center space-x-2">
+                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                <span>Recording Request & Preparing WhatsApp...</span>
+              </span>
             ) : (
               <>
-                <Send className="w-4 h-4 text-[#6B8E23]" />
-                <span>Book Consultation & Open WhatsApp</span>
+                <Send className="w-4 h-4 text-[#A7D495]" />
+                <span>Submit Request & Connect via WhatsApp</span>
               </>
             )}
           </button>
+          <p className="text-center text-[11px] text-[#788272] mt-2">
+            No upfront payment required to submit. We will connect with you via WhatsApp ({WHATSAPP_NUMBER}) promptly.
+          </p>
         </div>
 
       </form>

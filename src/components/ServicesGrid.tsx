@@ -28,38 +28,98 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export const ServicesGrid: React.FC = () => {
+  const [activeTab, setActiveTab] = React.useState<'all' | 'behavior' | 'school' | 'social'>('all');
+
+  const filteredServices = React.useMemo(() => {
+    if (activeTab === 'behavior') {
+      return SERVICES_DATA.filter((s) => ['behavioural', 'anxiety', 'outbursts', 'anger'].includes(s.id));
+    }
+    if (activeTab === 'school') {
+      return SERVICES_DATA.filter((s) => ['academic', 'attention', 'confidence'].includes(s.id));
+    }
+    if (activeTab === 'social') {
+      return SERVICES_DATA.filter((s) => ['social', 'family', 'bullying', 'trauma'].includes(s.id));
+    }
+    return SERVICES_DATA;
+  }, [activeTab]);
+
   return (
-    <section className="py-12 lg:py-16 bg-[#F7F9F2] border-b border-[#E5E1D8]">
+    <section id="services-section" className="py-16 lg:py-20 bg-[#F8F6F1] border-b border-[#E8E2D9]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-2 mb-10">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A5D23] bg-white border border-[#E5E1D8] px-3.5 py-1 rounded-md">
-            Specialized Psychological Care
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold font-serif text-[#1A2A1A]">
-            How We Can Help
+        <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
+          <div className="flex items-center justify-center space-x-2 text-xs font-semibold text-[#2D5A27]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3E6B35]"></span>
+            <span className="uppercase tracking-widest text-[11px] font-bold">Specialized Psychological Care</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold font-serif text-[#172815] tracking-tight">
+            Comprehensive Clinical Support for Every Child & Teen
           </h2>
-          <p className="text-[#555] text-sm sm:text-base">
-            Whether your child is facing a temporary challenge or ongoing emotional concerns, we provide personalized support for issues including:
+          <p className="text-[#566050] text-sm sm:text-base leading-relaxed">
+            Whether your child is facing an acute crisis or gradual emotional shifts, we provide individualized, research-backed therapies tailored to their age.
           </p>
         </div>
 
-        {/* 10 Service Area Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5 mb-10">
-          {SERVICES_DATA.map((service) => (
+        {/* Interactive Filter Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+              activeTab === 'all'
+                ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-xs'
+                : 'bg-white text-[#566050] border-[#E8E2D9] hover:bg-[#FAF8F5]'
+            }`}
+          >
+            All Areas of Care ({SERVICES_DATA.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('behavior')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+              activeTab === 'behavior'
+                ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-xs'
+                : 'bg-white text-[#566050] border-[#E8E2D9] hover:bg-[#FAF8F5]'
+            }`}
+          >
+            Emotional & Behavioral Regulation
+          </button>
+          <button
+            onClick={() => setActiveTab('school')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+              activeTab === 'school'
+                ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-xs'
+                : 'bg-white text-[#566050] border-[#E8E2D9] hover:bg-[#FAF8F5]'
+            }`}
+          >
+            School, Focus & Confidence
+          </button>
+          <button
+            onClick={() => setActiveTab('social')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+              activeTab === 'social'
+                ? 'bg-[#2D5A27] text-white border-[#2D5A27] shadow-xs'
+                : 'bg-white text-[#566050] border-[#E8E2D9] hover:bg-[#FAF8F5]'
+            }`}
+          >
+            Social, Family & Bullying
+          </button>
+        </div>
+
+        {/* Dynamic Service Area Cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-10">
+          {filteredServices.map((service) => (
             <div
               key={service.id}
-              className="bg-white p-4 rounded-xl border border-[#E5E1D8] shadow-2xs hover:border-[#6B8E23] transition-all flex flex-col justify-between group cursor-default"
+              className="bg-white p-5 rounded-2xl border border-[#E8E2D9] shadow-2xs hover:border-[#3E6B35] hover:shadow-sm transition-all flex flex-col justify-between group cursor-default"
             >
               <div>
-                <div className="w-10 h-10 rounded-lg bg-[#F7F9F2] border border-[#E5E1D8] text-[#6B8E23] group-hover:bg-[#6B8E23] group-hover:text-white flex items-center justify-center mb-3 transition-colors">
+                <div className="w-11 h-11 rounded-xl bg-[#F4F7EF] border border-[#DFE7D6] text-[#2D5A27] group-hover:bg-[#2D5A27] group-hover:text-white flex items-center justify-center mb-3.5 transition-colors">
                   {iconMap[service.iconName] || <Sparkles className="w-5 h-5" />}
                 </div>
-                <h3 className="font-bold text-[#1A2A1A] text-sm font-serif mb-1.5 group-hover:text-[#6B8E23] transition-colors">
+                <h3 className="font-bold text-[#172815] text-sm font-serif mb-1.5 group-hover:text-[#2D5A27] transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-xs text-[#555] leading-relaxed">
+                <p className="text-xs text-[#566050] leading-relaxed">
                   {service.description}
                 </p>
               </div>
@@ -68,10 +128,10 @@ export const ServicesGrid: React.FC = () => {
         </div>
 
         {/* Tailored Plan Reassurance */}
-        <div className="bg-white border border-[#E5E1D8] rounded-xl p-4 text-center max-w-2xl mx-auto flex items-center justify-center space-x-3 shadow-2xs">
-          <Sparkle className="w-4 h-4 text-[#6B8E23] shrink-0" />
-          <p className="text-[#1A2A1A] font-semibold text-xs sm:text-sm font-serif">
-            Every therapy plan is thoughtfully tailored because no two children are the same.
+        <div className="bg-white border border-[#E8E2D9] rounded-2xl p-4 text-center max-w-2xl mx-auto flex items-center justify-center space-x-3 shadow-2xs">
+          <Sparkle className="w-4 h-4 text-[#3E6B35] shrink-0" />
+          <p className="text-[#172815] font-semibold text-xs sm:text-sm font-serif">
+            Every therapy plan is thoughtfully personalized because every child possesses a unique mind and journey.
           </p>
         </div>
 

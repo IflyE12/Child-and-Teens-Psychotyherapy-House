@@ -1,7 +1,7 @@
 import { Testimonial, ServiceItem, CorePillar } from '../types';
 
-export const WHATSAPP_NUMBER = '08073327207';
-export const WHATSAPP_INTL = '2348073327207';
+export const WHATSAPP_NUMBER = '08037713335';
+export const WHATSAPP_INTL = '2348037713335';
 
 export const TRUST_BADGES = [
   'Confidential & Professional Care',

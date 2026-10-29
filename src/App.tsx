@@ -7,6 +7,7 @@ import { WhyChooseUs } from './components/WhyChooseUs';
 import { ImagineDifference } from './components/ImagineDifference';
 import { ReassuranceSection } from './components/ReassuranceSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
+import { ParentFAQ } from './components/ParentFAQ';
 import { TrustBadges } from './components/TrustBadges';
 import { ConsultationCTA } from './components/ConsultationCTA';
 import { ConsultationForm } from './components/ConsultationForm';
@@ -128,11 +129,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-purple-200 selection:text-purple-900">
+    <div className="min-h-screen bg-[#FDFCFB] font-sans text-[#2D2D2D] selection:bg-[#4A7043]/20 selection:text-[#172815]">
       
-      {/* Navigation Header */}
+      {/* Navigation Header (Google Sheets removed from frontend bar) */}
       <Header
-        onOpenGoogleSheetModal={() => setIsGoogleSheetModalOpen(true)}
         onOpenLeadsDrawer={() => setIsLeadsDrawerOpen(true)}
         onScrollToForm={handleScrollToForm}
         leadsCount={leadsCount}
@@ -158,11 +158,14 @@ export default function App() {
         {/* 6. Parent Reassurance & Future Starts Today */}
         <ReassuranceSection />
 
-        {/* 7. Real Testimonials + SECOND CTA Button */}
+        {/* 7. Real Testimonials */}
         <TestimonialsSection onScrollToForm={handleScrollToForm} />
 
+        {/* 8. Parent FAQs */}
+        <ParentFAQ />
+
         {/* Final Conversion & Form Block */}
-        <section className="py-16 lg:py-24 bg-gradient-to-b from-slate-50 via-purple-50/50 to-white relative">
+        <section className="py-16 lg:py-24 bg-gradient-to-b from-[#FAF8F5] via-[#F4F7EF]/50 to-white relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Placed IMMEDIATELY BEFORE the final CTA button as requested */}

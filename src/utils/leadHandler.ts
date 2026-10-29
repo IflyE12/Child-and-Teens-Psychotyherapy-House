@@ -1,7 +1,7 @@
 import { LeadFormData } from '../types';
 
 export const DEFAULT_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbztFACMAxS8GsP82Hr8t_DvohiPexRhptYRlDSU9IRAmF1Q6Fplh4EL9bzJi3k0dGM0/exec';
-export const WHATSAPP_INTL = '2348073327207';
+export const WHATSAPP_INTL = '2348037713335';
 
 export const GOOGLE_APPS_SCRIPT_CODE = `/**
  * GOOGLE APPS SCRIPT FOR CHILD & TEEN COUNSELLING LEADS
