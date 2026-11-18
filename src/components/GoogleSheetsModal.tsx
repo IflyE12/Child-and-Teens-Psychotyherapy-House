@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Copy, Check, FileSpreadsheet, ExternalLink, Code2, Play } from 'lucide-react';
+import { X, Copy, Check, FileSpreadsheet, ExternalLink, Code2, Play, Users } from 'lucide-react';
 import { GOOGLE_APPS_SCRIPT_CODE, getSavedWebhookUrl, saveWebhookUrlToStorage } from '../utils/leadHandler';
 
 interface GoogleSheetsModalProps {
@@ -7,6 +7,8 @@ interface GoogleSheetsModalProps {
   onClose: () => void;
   configuredWebhookUrl: string;
   onSaveWebhookUrl: (url: string) => void;
+  leadsCount?: number;
+  onOpenLeadsDrawer?: () => void;
 }
 
 export const GoogleSheetsModal: React.FC<GoogleSheetsModalProps> = ({
@@ -14,6 +16,8 @@ export const GoogleSheetsModal: React.FC<GoogleSheetsModalProps> = ({
   onClose,
   configuredWebhookUrl,
   onSaveWebhookUrl,
+  leadsCount = 0,
+  onOpenLeadsDrawer,
 }) => {
   const [scriptCode, setScriptCode] = useState(GOOGLE_APPS_SCRIPT_CODE);
   const [copied, setCopied] = useState(false);
@@ -76,12 +80,24 @@ export const GoogleSheetsModal: React.FC<GoogleSheetsModalProps> = ({
               <p className="text-xs text-[#E5E1D8]">Automatically log every incoming lead directly to your Google Sheet</p>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center space-x-2">
+            {onOpenLeadsDrawer && (
+              <button
+                onClick={onOpenLeadsDrawer}
+                className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-[#6B8E23] hover:bg-[#5a781d] text-white text-xs font-bold transition-colors cursor-pointer"
+                title="Open Admin Captured Leads Dashboard"
+              >
+                <Users className="w-3.5 h-3.5" />
+                <span>View Leads ({leadsCount})</span>
+              </button>
+            )}
+            <button
+              onClick={onClose}
+              className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Content Body */}

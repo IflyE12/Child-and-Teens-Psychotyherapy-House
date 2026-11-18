@@ -1,17 +1,13 @@
 import React from 'react';
-import { Heart, Phone, Users, Calendar, Sparkles } from 'lucide-react';
+import { Phone, Calendar } from 'lucide-react';
 import { WHATSAPP_NUMBER, WHATSAPP_INTL } from '../data/copyData';
 
 interface HeaderProps {
-  onOpenLeadsDrawer: () => void;
   onScrollToForm: () => void;
-  leadsCount: number;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  onOpenLeadsDrawer,
   onScrollToForm,
-  leadsCount,
 }) => {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -24,26 +20,27 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-40 bg-[#FDFCFB]/95 backdrop-blur-md border-b border-[#E8E2D9] shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
-        {/* Brand Logo & Editorial Title */}
+        {/* Brand Logo & Company Title */}
         <div
-          className="flex items-center space-x-3.5 cursor-pointer group"
+          className="flex items-center space-x-3 cursor-pointer group shrink-0"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#2D5A27] to-[#1E3E1A] flex items-center justify-center text-white shadow-sm ring-2 ring-[#4A7043]/20 group-hover:scale-105 transition-transform">
-            <Heart className="w-5 h-5 fill-white/30 text-white" />
+          <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-white border border-[#E8E2D9] p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform overflow-hidden shrink-0">
+            <img
+              src="/assets/aistudio/IFLYH_CCS_01c47bd3.jpg"
+              alt="IflyHeights Child Counseling Services Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
-          <div>
-            <div className="flex items-baseline space-x-1.5">
-              <span className="text-xl sm:text-2xl font-bold font-serif text-[#172815] tracking-tight">
-                Haven
+          <div className="min-w-0">
+            <div className="flex flex-col leading-tight">
+              <span className="text-base sm:text-xl font-bold font-serif text-[#172815] tracking-tight">
+                IflyHeights
               </span>
-              <span className="text-[#3E6B35] font-serif text-lg sm:text-xl font-medium italic">
-                Counselling
+              <span className="text-[11px] sm:text-xs font-semibold text-[#2D5A27] tracking-wide">
+                Child Counseling Services
               </span>
             </div>
-            <p className="text-[11px] text-[#636C5F] font-medium tracking-wide">
-              Child & Teen Psychological Support
-            </p>
           </div>
         </div>
 
@@ -94,21 +91,6 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="hidden sm:inline font-mono text-[12px]">{WHATSAPP_NUMBER}</span>
             <span className="sm:hidden font-medium text-[11px]">Chat</span>
           </a>
-
-          {/* Admin Leads Drawer Trigger (Discreet management) */}
-          <button
-            onClick={onOpenLeadsDrawer}
-            className="relative flex items-center space-x-1 px-2.5 py-2 rounded-xl text-xs font-semibold text-[#576150] bg-[#FAF8F5] hover:bg-[#F0ECE1] border border-[#E8E2D9] transition-all cursor-pointer"
-            title="View consultation leads"
-          >
-            <Users className="w-3.5 h-3.5 text-[#3E6B35]" />
-            <span className="hidden md:inline text-[11px]">Leads</span>
-            {leadsCount > 0 && (
-              <span className="ml-1 px-1.5 py-0.2 rounded-full bg-[#2D5A27] text-white text-[10px] font-bold">
-                {leadsCount}
-              </span>
-            )}
-          </button>
 
           {/* Primary CTA Button */}
           <button

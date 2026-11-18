@@ -136,7 +136,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToForm }) => {
                 <div className="pt-2.5 border-t border-[#CADBBF] flex items-start space-x-2.5 text-sm sm:text-base text-[#163311]">
                   <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5 text-[#2D5A27]" />
                   <span className="leading-snug">
-                    <strong className="font-extrabold text-[#11240E]">How Haven Helps:</strong>{' '}
+                    <strong className="font-extrabold text-[#11240E]">How IflyHeights Helps:</strong>{' '}
                     <span className="font-semibold text-[#1A3815]">{selectedChallenge.howWeHelp}</span>
                   </span>
                 </div>
@@ -210,7 +210,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollToForm }) => {
                   </div>
                   <div>
                     <h4 className="font-bold text-[#172815] text-xs font-serif uppercase tracking-wider">
-                      The Haven Promise
+                      The IflyHeights Promise
                     </h4>
                     <p className="text-xs text-[#525E4D] italic leading-relaxed mt-1 font-serif">
                       "No blame, no labeling. Just genuine understanding, clinical expertise, and real tools that empower your child to blossom."

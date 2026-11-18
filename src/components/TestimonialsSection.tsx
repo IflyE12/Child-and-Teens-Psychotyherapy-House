@@ -23,7 +23,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ onScro
           </h2>
 
           <p className="text-[#566050] text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Every family's journey starts with a single step. Here is what parents and adolescents say about finding clarity and calm with Haven.
+            Every family's journey starts with a single step. Here is what parents and adolescents say about finding clarity and calm with IflyHeights.
           </p>
         </div>
 

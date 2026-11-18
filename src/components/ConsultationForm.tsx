@@ -572,7 +572,7 @@ export const ConsultationForm: React.FC<ConsultationFormProps> = ({
               onChange={(e) => setFormData({ ...formData, consentContact: e.target.checked })}
               className="accent-[#2D5A27] w-4 h-4 mt-0.5 rounded cursor-pointer"
             />
-            <span>I consent to being contacted by Haven Counselling via phone, email, or WhatsApp.</span>
+            <span>I consent to being contacted by IflyHeights Child Counseling Services via phone, email, or WhatsApp.</span>
           </label>
         </div>
 

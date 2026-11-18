@@ -88,6 +88,34 @@ export default function App() {
       .catch((err) => console.log('Static preview mode active for settings:', err));
   }, [refreshTrigger]);
 
+  // Admin-only access to Leads Dashboard via URL (?admin=leads or #admin) or Ctrl+Shift+L
+  useEffect(() => {
+    const checkAdminUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      const adminParam = params.get('admin');
+      const hash = window.location.hash.toLowerCase();
+      if (adminParam === 'leads' || adminParam === 'true' || hash === '#admin' || hash === '#admin-leads') {
+        setIsLeadsDrawerOpen(true);
+      }
+    };
+
+    checkAdminUrl();
+    window.addEventListener('hashchange', checkAdminUrl);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'l') {
+        e.preventDefault();
+        setIsLeadsDrawerOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('hashchange', checkAdminUrl);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   const handleScrollToForm = () => {
     const el = document.getElementById('consultation-form-section');
     if (el) {
@@ -131,11 +159,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#FDFCFB] font-sans text-[#2D2D2D] selection:bg-[#4A7043]/20 selection:text-[#172815]">
       
-      {/* Navigation Header (Google Sheets removed from frontend bar) */}
+      {/* Navigation Header (Google Sheets & Leads removed from frontend bar) */}
       <Header
-        onOpenLeadsDrawer={() => setIsLeadsDrawerOpen(true)}
         onScrollToForm={handleScrollToForm}
-        leadsCount={leadsCount}
       />
 
       {/* Main Content Sections */}
@@ -196,6 +222,11 @@ export default function App() {
         onClose={() => setIsGoogleSheetModalOpen(false)}
         configuredWebhookUrl={configuredWebhookUrl}
         onSaveWebhookUrl={handleSaveWebhookUrl}
+        leadsCount={leadsCount}
+        onOpenLeadsDrawer={() => {
+          setIsGoogleSheetModalOpen(false);
+          setIsLeadsDrawerOpen(true);
+        }}
       />
 
       <LeadsAdminDrawer

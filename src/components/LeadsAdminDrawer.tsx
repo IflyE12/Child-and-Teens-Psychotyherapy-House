@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Users, Download, Phone, RefreshCw, Search, Calendar, FileText } from 'lucide-react';
 import { LeadFormData } from '../types';
 import { getLocalLeads } from '../utils/leadHandler';
+import { WHATSAPP_INTL } from '../data/copyData';
 
 interface LeadRecord extends LeadFormData {
   id: string;
@@ -90,7 +91,7 @@ export const LeadsAdminDrawer: React.FC<LeadsAdminDrawerProps> = ({
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `haven_counselling_leads_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute('download', `iflyheights_ccs_leads_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -211,7 +212,7 @@ export const LeadsAdminDrawer: React.FC<LeadsAdminDrawerProps> = ({
 
                 <div className="flex items-center justify-end pt-0.5">
                   <a
-                    href={`https://wa.me/2348073327207?text=${encodeURIComponent(
+                    href={`https://wa.me/${WHATSAPP_INTL}?text=${encodeURIComponent(
                       `Hello ${lead.parentName}, following up regarding your consultation request for ${lead.childName}.`
                     )}`}
                     target="_blank"

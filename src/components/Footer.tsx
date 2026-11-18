@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Phone, Mail, ShieldCheck, FileSpreadsheet } from 'lucide-react';
+import { Phone, ShieldCheck, FileSpreadsheet } from 'lucide-react';
 import { WHATSAPP_NUMBER, WHATSAPP_INTL } from '../data/copyData';
 
 interface FooterProps {
@@ -16,12 +16,16 @@ export const Footer: React.FC<FooterProps> = ({ onOpenGoogleSheetModal, onScroll
           
           {/* Brand Info */}
           <div className="md:col-span-6 space-y-3">
-            <div className="flex items-center space-x-2.5 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <div className="w-8 h-8 rounded-lg bg-[#6B8E23] flex items-center justify-center text-white">
-                <Heart className="w-4 h-4 fill-white text-white" />
+            <div className="flex items-center space-x-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center shrink-0 shadow-xs overflow-hidden">
+                <img
+                  src="/assets/aistudio/IFLYH_CCS_01c47bd3.jpg"
+                  alt="IflyHeights Child Counseling Services Logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <span className="text-lg font-bold font-serif text-white tracking-tight">
-                Haven Child & Teen Counselling
+                IflyHeights Child Counseling Services
               </span>
             </div>
 
@@ -84,7 +88,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenGoogleSheetModal, onScroll
 
         {/* Bottom Line */}
         <div className="pt-6 border-t border-[#2D452B] flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#B8C8B3] gap-2">
-          <p>© {new Date().getFullYear()} Haven Child & Teen Psychological Services. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} IflyHeights Child Counseling Services. All rights reserved.</p>
           <p>Confidential & Professional Care for Children, Adolescents, and Parents.</p>
         </div>
 

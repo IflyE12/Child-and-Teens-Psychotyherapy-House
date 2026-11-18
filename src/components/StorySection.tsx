@@ -70,7 +70,7 @@ export const StorySection: React.FC = () => {
               "We believe that every child deserves someone who will listen without judgment, understand their unique world, and guide them with kindness toward emotional peace and confidence."
             </p>
             <p className="text-xs font-bold text-[#A7D495] uppercase tracking-widest pt-1">
-              That is our dedicated mission at Haven Counselling.
+              That is our dedicated mission at IflyHeights Child Counseling Services.
             </p>
           </div>
         </div>
